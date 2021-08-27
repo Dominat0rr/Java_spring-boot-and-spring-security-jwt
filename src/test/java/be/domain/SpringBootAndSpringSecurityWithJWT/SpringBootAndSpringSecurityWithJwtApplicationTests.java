@@ -1,4 +1,4 @@
-package be.domain.Spring.Boot.and.Spring.Security.with.JWT;
+package be.domain.SpringBootAndSpringSecurityWithJWT;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package be.domain.Spring.Boot.and.Spring.Security.with.JWT;
+package be.domain.SpringBootAndSpringSecurityWithJWT;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
