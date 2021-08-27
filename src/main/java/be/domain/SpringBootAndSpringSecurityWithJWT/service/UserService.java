@@ -4,6 +4,7 @@ import be.domain.SpringBootAndSpringSecurityWithJWT.entity.Role;
 import be.domain.SpringBootAndSpringSecurityWithJWT.entity.User;
 import be.domain.SpringBootAndSpringSecurityWithJWT.repository.RoleRepository;
 import be.domain.SpringBootAndSpringSecurityWithJWT.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,7 @@ import java.util.List;
 public class UserService implements UserServiceInterface, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,13 +42,14 @@ public class UserService implements UserServiceInterface, UserDetailsService {
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
-        
+
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
     @Override
     public User save(User user) {
         log.info("Saving new user {} to the database", user.getName());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
